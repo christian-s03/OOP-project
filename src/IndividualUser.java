@@ -17,6 +17,9 @@ public class IndividualUser extends User {
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
+    public boolean IsStudent() {
+        return studentId != null && !studentId.isEmpty();
+    }
 
     @Override
     public String toString() {
