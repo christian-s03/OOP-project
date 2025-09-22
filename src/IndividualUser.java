@@ -18,6 +18,10 @@ public class IndividualUser extends User {
         this.studentId = studentId;
     }
 
+    public boolean isStudent() {
+        return studentId != null && !studentId.trim().isEmpty();
+    }
+
     @Override
     public String toString() {
         return "IndividualUser[ email=" + getEmail() +
