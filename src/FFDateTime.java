@@ -63,12 +63,21 @@ public final class FFDateTime implements Comparable<FFDateTime> {
         return (int) Duration.between(thisLdt, otherLdt).toMinutes();
     }
 
+    public int getHour() {
+        return this.hour;
+    }
+
+    public LocalDateTime toLocalDateTime() {
+        return LocalDateTime.of(year, month, day, hour, minute);
+    }
+
     @Override
     public int compareTo(FFDateTime o) {
         return Integer.compare(this.toEpochMinutes(), o.toEpochMinutes());
     }
+
     @Override
     public String toString() {
-        return String.format("%02d:%02d:%02d",year, month, day, hour, minute);
+        return String.format("%04d-%02d-%02d %02d:%02d", year, month, day, hour, minute);
     }
 }
