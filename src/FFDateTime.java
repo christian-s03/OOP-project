@@ -67,8 +67,34 @@ public final class FFDateTime implements Comparable<FFDateTime> {
     public int compareTo(FFDateTime o) {
         return Integer.compare(this.toEpochMinutes(), o.toEpochMinutes());
     }
+
     @Override
     public String toString() {
-        return String.format("%02d:%02d:%02d",year, month, day, hour, minute);
+        return String.format("%02d:%02d:%02d", year, month, day, hour, minute);
+    }
+
+    public boolean isBefore(FFDateTime other) {
+        return this.compareTo(other) < 0;
+    }
+
+    public boolean isAfter(FFDateTime other) {
+        return this.compareTo(other) > 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof FFDateTime)) return false;
+        FFDateTime other = (FFDateTime) obj;
+        return this.year == other.year &&
+                this.month == other.month &&
+                this.day == other.day &&
+                this.hour == other.hour &&
+                this.minute == other.minute;
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(year, month, day, hour, minute);
     }
 }

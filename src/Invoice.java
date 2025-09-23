@@ -1,6 +1,7 @@
 public class Invoice {
     private String invoiceNumber;
     private FFDateTime issueDate;
+    private Booking booking;
     private User buyer;
     private Money total;
     private String itemDescription;
@@ -8,6 +9,7 @@ public class Invoice {
     public Invoice(String invoiceNumber, FFDateTime issueDate, User buyer, Money total, String itemDescription) {
         this.invoiceNumber = invoiceNumber;
         this.issueDate = issueDate;
+        this.booking = booking;
         this.buyer = buyer;
         this.total = total;
         this.itemDescription = itemDescription;
