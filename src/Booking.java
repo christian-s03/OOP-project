@@ -27,6 +27,10 @@ public class Booking {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public User getUser() {
         return user;
     }
@@ -68,7 +72,7 @@ public class Booking {
         return status;
     }
 
-    public Money getCalculatedPrice(Money calculatedPrice) {
+    public Money getCalculatedPrice() {
         return calculatedPrice;
     }
 
@@ -86,6 +90,10 @@ public class Booking {
 
     public int durationMinutes() {
         return (int) (end.toEpochMinutes() - start.toEpochMinutes());
+    }
+
+    public void setStatus(BookingStatus status) {
+        this.status = status;
     }
 
     public void changeStatus(BookingStatus newStatus) {

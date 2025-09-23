@@ -1,25 +1,28 @@
 public class WalletPayment extends Payment {
+    private Wallet wallet;
 
-    private User user;
-
-    public WalletPayment(Money amount, String paymentId, User user) {
+    public WalletPayment(Wallet wallet, Money amount, String paymentId) {
         super(amount, paymentId);
-        this.user = user;
+        this.wallet = wallet;
     }
 
     @Override
-    public void capture(){
-        if (status != PaymentStatus.INITIATED) {
-            throw new IllegalStateException("Payment is not initiated");
-        }
-        status = PaymentStatus.CAPTURED;
+    public void capture() {
+        System.out.println("Capturing payment from wallet " + wallet.getWalletId() + " amount: " + amount);
+        this.status = PaymentStatus.CAPTURED;
     }
 
     @Override
     public void refund() {
-        if (status != PaymentStatus.CAPTURED) {
-            throw new IllegalStateException("Payment is not captured");
+        if (status == PaymentStatus.CAPTURED) {
+            System.out.println("Refunding wallet " + wallet.getWalletId() + " amount: " + amount);
+            this.status = PaymentStatus.REFUNDED;
+        } else {
+            throw new IllegalStateException("Cannot refund before capture");
         }
-        status = PaymentStatus.REFUNDED;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
     }
 }

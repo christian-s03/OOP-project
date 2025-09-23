@@ -1,23 +1,25 @@
 public class CardPayment extends Payment {
-    private String last4;
+    private Card card;
 
-    public CardPayment(Money amount, String paymentId, String last4) {
+    public CardPayment(Card card, Money amount, String paymentId) {
         super(amount, paymentId);
-        this.last4 = last4;
+        this.card = card;
     }
     @Override
     public void capture(){
-        if (status != PaymentStatus.INITIATED) {
-            throw new IllegalStateException("Payment is not initiated");
-        }
-        status = PaymentStatus.CAPTURED;
+        System.out.println("Capturing Card: " + card + ", amount: " + amount);
+        this.status = PaymentStatus.CAPTURED;
     }
-
     @Override
-    public void refund() {
-        if (status != PaymentStatus.CAPTURED) {
-            throw new IllegalStateException("Payment is not captured");
+    public void refund(){
+        if(status == PaymentStatus.CAPTURED){
+            System.out.println("Refunding Card: " + card.getCardNumber() + ", amount: " + amount);
+            this.status = PaymentStatus.REFUNDED;
+        } else {
+            throw new IllegalStateException("Cannot refund before capture");
         }
-        status = PaymentStatus.REFUNDED;
+    }
+    public Card getCard() {
+        return card;
     }
 }
