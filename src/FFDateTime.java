@@ -70,7 +70,7 @@ public final class FFDateTime implements Comparable<FFDateTime> {
 
     @Override
     public String toString() {
-        return String.format("%02d:%02d:%02d", year, month, day, hour, minute);
+        return String.format("%04d-%02d-%02dT%02d:%02d", year, month, day, hour, minute);
     }
 
     public boolean isBefore(FFDateTime other) {

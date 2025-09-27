@@ -54,6 +54,7 @@ public final class Money implements Comparable<Money> {
         return multiply(BigDecimal.valueOf(multiplier));
     }
 
+
     public BigDecimal getAmount() {
         return amount;
     }
@@ -74,10 +75,12 @@ public final class Money implements Comparable<Money> {
         Money money = (Money) o;
         return amount.equals(money.amount);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(amount);
     }
+
     @Override
     public String toString() {
         return amount.toPlainString() + " " + CURRENCY;

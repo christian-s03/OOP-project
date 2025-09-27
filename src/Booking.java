@@ -7,6 +7,7 @@ public class Booking {
     private BookingStatus status;
     private Money calculatedPrice;
     private Payment payment;
+    private Money total;
 
     public Booking(String id, User user, Resource resource,
                    FFDateTime start, FFDateTime end, Money calculatedPrice) {
@@ -102,6 +103,10 @@ public class Booking {
                     "Transition from " + this.status + " to " + newStatus + " not allowed");
         }
         this.status = newStatus;
+    }
+
+    public Money getTotal() {
+        return total;
     }
 
     private boolean isStatusTransitionAllowed(BookingStatus current, BookingStatus next) {
