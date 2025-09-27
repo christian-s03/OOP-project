@@ -37,8 +37,6 @@ public class BookingService {
 
         booking.setId(generateId(start));
 
-        booking.changeStatus(BookingStatus.Pending);
-
         bookingRepo.add(booking);
 
         return booking;
@@ -46,7 +44,7 @@ public class BookingService {
 
     public Booking book(User u, Resource r, FFDateTime start, int durationMinutes) {
         FFDateTime end = start.plusMinutes(durationMinutes);
-        return book(u, r, end, start);
+        return book(u, r, start, end);
     }
 
     public void confirm(String bookingId) {
@@ -57,6 +55,7 @@ public class BookingService {
     public void cancel(String bookingId) {
         Booking b = getBookingOrThrow(bookingId);
         b.changeStatus(BookingStatus.Cancelled);
+        System.out.println("Cancelled");
     }
 
     public void complete(String bookingId) {
@@ -98,21 +97,23 @@ public class BookingService {
             }
         } else if (r instanceof Device) {
             Device d = (Device) r;
-            int overlapsCount = 0;
+            int usedQuantity = 0;
+
             for (Booking b : existing) {
                 if (b.getStatus() == BookingStatus.Pending || b.getStatus() == BookingStatus.Confirmed) {
                     if (overlaps(b.getStart(), b.getEnd(), start, end)) {
-                        overlapsCount++;
+                        usedQuantity += 1;
                     }
                 }
             }
-            if (overlapsCount > d.getQuantity()) {
+
+            if (usedQuantity + 1 > d.getQuantity()) {
                 throw new IllegalStateException("Resource already booked");
             }
         }
     }
 
     private boolean overlaps(FFDateTime s1, FFDateTime e1, FFDateTime s2, FFDateTime e2) {
-        return s1.isBefore(e2) && s2.isAfter(e1);
+        return s1.isBefore(e2) && e1.isAfter(s2);
     }
 }

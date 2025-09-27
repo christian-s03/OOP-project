@@ -1,6 +1,6 @@
 public class NoDiscount implements Discountable {
     @Override
-    public Money applyDiscount(Money base, User user) {
-        return base;
+    public Money applyDiscount(Money money, User user) {
+        return money;
     }
 }

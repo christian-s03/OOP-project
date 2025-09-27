@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class InMemoryResourceRepository implements ResourceRepository {
-    private final Map<String, Resource> resourcesByName = new HashMap<>();
+    public final Map<String, Resource> resourcesByName = new HashMap<>();
 
     @Override
     public void add(Resource r) {
